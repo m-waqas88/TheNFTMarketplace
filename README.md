@@ -1,6 +1,8 @@
 # NFT Marketplace
 This is a demo project that depicts the concept of NFT marketplace. On this platform you can mint and sell your NFTs. This project is currently deployed on Ethereum Sepolia testnet.
 
+Live demo of the NFT Marketplace can be experienced [here](https://the-nft-marketplace.vercel.app/)
+
 ## Frontend Stack
 1. ReactJs/NextJs
 2. Axios
