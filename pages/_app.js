@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Marketplace = ({Component, pageProps}) => {
   return (
-    <div className='border-b p-6 bg-gradient-to-b from-purple-600 to-blue-600'>
+    <div className='border-b p-6 bg-gradient-to-b from-purple-600 to-blue-600 h-screen'>
       <nav className='border-b p-6'>
         <p className='text-4xl font-bold flex justify-center text-cyan-200'>
           NFT Digital Art Marketplace
