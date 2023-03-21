@@ -3,6 +3,7 @@ import {useEffect,useState} from 'react'
 import axios, { HttpStatusCode } from 'axios'
 import Web3Modal from 'web3modal'
 import { nftaddress,nftmarketaddress } from '../config'
+import { Puff } from 'react-loading-icons'
 
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json"
 import NFTMarket from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json"
@@ -65,32 +66,35 @@ export default function Home(){
             </p>
         </div>
     )
-
-    return(
-        <div className="flex justify-center">
-            <div className="container mx-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5">
-                  {
-                    nfts.map((nft,i)=>(
-                        <div key={i} className="border shadow rounded-3xl overflow-hidden">
-                            <img src={nft.image}/>
-                            <div className="p-4">
-                                <p style={{height:'64px'}} className="text-2xl font-semibold">{nft.name}</p>
-                                <div style={{height:'70px', overflow:"hidden"}}>
-                                    <p className="text-gray-400">{nft.description}</p>
+    if(loadingState != "loaded"){
+        return(<Puff />);
+    }else{
+        return(
+            <div className="flex justify-center">
+                <div className="container mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5">
+                      {
+                        nfts.map((nft,i)=>(
+                            <div key={i} className="border shadow rounded-3xl overflow-hidden">
+                                <img src={nft.image}/>
+                                <div className="p-4">
+                                    <p style={{height:'64px'}} className="text-2xl font-semibold">{nft.name}</p>
+                                    <div style={{height:'70px', overflow:"hidden"}}>
+                                        <p className="text-gray-400">{nft.description}</p>
+                                    </div>
+                                </div>
+    
+                                <div className='p-4 bg-blue'>
+                                    <p className='text-2xl mb-4 font-bold text-white'>{nft.price} ETH</p>
+                                    <button className="w-full bg-purple-600 text-white font-bold py-2 px-12 rounded" 
+                                    onClick={()=>buyNFT(nft)}>Buy</button>
                                 </div>
                             </div>
-
-                            <div className='p-4 bg-blue'>
-                                <p className='text-2xl mb-4 font-bold text-white'>{nft.price} ETH</p>
-                                <button className="w-full bg-purple-600 text-white font-bold py-2 px-12 rounded" 
-                                onClick={()=>buyNFT(nft)}>Buy</button>
-                            </div>
-                        </div>
-                    ))
-                  }
+                        ))
+                      }
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }

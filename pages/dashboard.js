@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
 import styles from '../styles/Home.module.css';
+import { Puff } from 'react-loading-icons'
 
 import {
   nftmarketaddress, nftaddress
@@ -55,44 +56,48 @@ export default function CreatorDashboard() {
     setLoadingState('loaded') 
   }
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets created</h1>)
-  return (
-    <div>
-      <div className="p-4">
-        <h2 className="text-2xl py-2">Items Created</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-4 gap-6 pt-5">
+  if(loadingState != "loaded"){
+    return(<Puff />);
+  }else{
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="text-2xl py-2">Items Created</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-4 gap-6 pt-5">
+            {
+              nfts.map((nft, i) => (
+                <div key={i} className="border shadow rounded-xl overflow-hidden">
+                  <img src={nft.image} className={styles['nft-image']}/>
+                  <div className="p-4 bg-black">
+                    <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+          <div className="px-4">
           {
-            nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} className={styles['nft-image']}/>
-                <div className="p-4 bg-black">
-                  <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
+            Boolean(sold.length) && (
+              <div>
+                <h2 className="text-2xl py-2">Items sold</h2>
+                <div class="grid grid-cols-4 gap-5 pt-6">
+                  {
+                    sold.map((nft, i) => (
+                      <div key={i} className="border shadow rounded-xl overflow-hidden">
+                        <img className={styles['nft-image']} src={nft.image}/>
+                        <div className="p-4 bg-black">
+                          <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
+                        </div>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
-            ))
+            )
           }
-        </div>
+          </div>
       </div>
-        <div className="px-4">
-        {
-          Boolean(sold.length) && (
-            <div>
-              <h2 className="text-2xl py-2">Items sold</h2>
-              <div class="grid grid-cols-4 gap-5 pt-6">
-                {
-                  sold.map((nft, i) => (
-                    <div key={i} className="border shadow rounded-xl overflow-hidden">
-                      <img className={styles['nft-image']} src={nft.image}/>
-                      <div className="p-4 bg-black">
-                        <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
-                      </div>
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
-          )
-        }
-        </div>
-    </div>
-  )
+    )
+  }
 }

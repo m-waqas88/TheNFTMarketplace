@@ -23,6 +23,7 @@
     "next": "13.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-loading-icons": "^1.1.0",
     "web3.storage": "^4.4.0",
     "web3modal": "^1.9.11"
   },
